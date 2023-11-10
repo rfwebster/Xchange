@@ -35,14 +35,15 @@ class Xchange(tk.Tk):
 
 
     def setup_ui(self):
+        """
+        Set up the user interface of the Xchange class.
+        """
         self.style = ttk.Style()
         self.style.theme_use('vista')
         self.style.configure("TFrame", background="black")
-
         self.style.configure("TButton", foreground="black", background="green", font=('Arial', 12, 'bold'), borderwidth=1)
         self.style.map("TButton", background=[("disabled", "light grey"), ("active", "green")], foreground=[("disabled", "grey"), ("active", "black")])
-
-        self.style.configure("TLabel", foreground="light green", background="black", font=('Arial', 12, 'bold'))
+        self.style.configure("TLabel", foreground="light green", background="black", font=('Arial', 12, 'bold'), justify=tk.CENTER)
         self.style.configure("TCheckbutton", foreground="light green", background="black", font=('Arial', 12, 'bold'))
 
         title_font = ('Arial', 16, 'bold')
@@ -50,29 +51,28 @@ class Xchange(tk.Tk):
 
         self.frame = ttk.Frame(self)
         self.frame.pack(padx=5, pady=5, fill=tk.X, expand=True, anchor='center')
-        
+
         self.beam_value_label = ttk.Label(self.frame, text='Beam Valve: ')
-        self.beam_value_label.pack(padx=5, pady=5,  fill=tk.BOTH, expand=True)
+        self.beam_value_label.pack(padx=5, pady=5, fill=tk.BOTH, expand=True, anchor=tk.CENTER)
 
         self.holder_status_label = ttk.Label(self.frame, text='Holder: ')
-        self.holder_status_label.pack(padx=5, pady=5,  fill=tk.BOTH, expand=True)
+        self.holder_status_label.pack(padx=5, pady=5, fill=tk.BOTH, expand=True)
 
         self.xy_stage_label = ttk.Label(self.frame, text='Stage: X= ,  Y= , Z= ')
-        self.xy_stage_label.pack(padx=5, pady=5,  fill=tk.BOTH, expand=True)
+        self.xy_stage_label.pack(padx=5, pady=5, fill=tk.BOTH, expand=True)
 
         self.z_stage_label = ttk.Label(self.frame, text='Z= ')
-        self.z_stage_label.pack(padx=5, pady=5,  fill=tk.BOTH, expand=True)
+        self.z_stage_label.pack(padx=5, pady=5, fill=tk.BOTH, expand=True)
 
         self.tilt_label = ttk.Label(self.frame, text='Tilt: Alpha= , Beta= ')
-        self.tilt_label.pack(padx=5, pady=5,  fill=tk.BOTH, expand=True)
+        self.tilt_label.pack(padx=5, pady=5, fill=tk.BOTH, expand=True)
 
         self.xchange_button = ttk.Button(self, text='Exchange')
-        self.xchange_button.pack(padx=5, pady=5,  fill=tk.BOTH, expand=True)
+        self.xchange_button.pack(padx=5, pady=5, fill=tk.BOTH, expand=True)
 
-        self.ontop_checkbox = ttk.Checkbutton(self, text='Always on top', state=tk.NORMAL,
-                                             command=self.toggle_ontop)
-        self.ontop_checkbox.state(['!selected']) # has no effect
-        self.ontop_checkbox.pack(padx=5, pady=5,  fill=tk.BOTH, expand=True)
+        self.checkbox_var = tk.BooleanVar(value=True)
+        self.ontop_checkbox = ttk.Checkbutton(self, text='Always on top', state=tk.NORMAL, command=self.toggle_ontop, variable=self.checkbox_var)
+        self.ontop_checkbox.pack(padx=5, pady=5, fill=tk.BOTH, expand=True)
         self.update_idletasks()
 
     def toggle_ontop(self):
